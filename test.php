@@ -69,12 +69,14 @@ function woocommerce_get_product_category_of_subcategories( $category_slug ){
 	foreach($children_ids as $children_id){
 		$term = get_term( $children_id, $taxonomy ); 
 		$term_link = get_term_link( $term, $taxonomy ); 
+		$thumbnail_id = get_term_meta( $term->term_id, 'thumbnail_id', true );
+		$image_url = wp_get_attachment_url( $thumbnail_id );
 		if ( is_wp_error( $term_link ) ) $term_link = '';
-		$terms_html[] = woocommerce_subcategory_thumbnail( $term ).
-			'<div class="subcategory-div d-flex flex-column text-center"> <a href="' .
+		$terms_html[] = '<div class="subcategory-div d-flex text-center justify-content-center align-items-center"> <a href="' .
 			esc_url( $term_link ) . 
-			'" rel="tag" class="' . 
+			'" rel="tag" class="d-flex flex-column ' . 
 			$term->slug . '">' .
+			"<img class='megamenu-images' src='$image_url' alt='product-image'>".
 			$term->name . 
 			'</a></div>';
 	}
@@ -90,15 +92,15 @@ function woocommerce_product_category( $args = array() ) {
 	$terms = get_terms( 'product_cat', $args );
 	if ( $terms ) {
 		echo '<div class="d-flex align-items-start">';
-		echo '<ul class="nav flex-column nav-tabs" id="myTab" role="tablist" aria-orientation="vertical">';
+		echo '<div class="nav flex-column nav-tabs" id="myTab" role="tablist" aria-orientation="vertical">';
 		
 		//print categories
-		foreach ( $terms as $term ) {
+		foreach ( array_reverse($terms) as $term ) {
 			$activeClass = '';
 			$selected = 'false';
-			if($queryIndex === 1) {
-				$activeClass = 'active';
-				$selected = 'true';
+			if($queryIndex === 0) {
+			#	$activeClass = 'active';
+			#	$selected = 'true';
 			}
 			$slug = $term->slug;
 			
@@ -111,19 +113,19 @@ function woocommerce_product_category( $args = array() ) {
 			echo '</li>';
 			$queryIndex ++;
 		}
-		echo '</ul>';
+		echo '</div>';
 	
 		echo '<div class="tab-content" id="myTabContent">';
 		$queryIndex = 0;
-		foreach ( $terms as $term ) {
+		foreach ( array_reverse($terms) as $term ) {
 			$activeClass = '';
 			$show = '';
-			if($queryIndex === 1){
-				$activeClass = 'active';
-				$show = 'show';
+			if($queryIndex === 0){
+			#	$activeClass = 'active';
+			#	$show = 'show';
 			}
 			$slug = $term->slug;
-			echo '<div class="tab-pane fade '.$show.' '.$activeClass.'" id="'.$slug.'-tab-pane" role="tabpanel" aria-labelledby="'.$slug.'-tab" tabindex="0">';
+			echo '<div class="tab-pane '.$show.' '.$activeClass.'" id="'.$slug.'-tab-pane" role="tabpanel" aria-labelledby="'.$slug.'-tab" tabindex="0" style="display:flex;">';
 
 				echo woocommerce_get_product_category_of_subcategories($slug);
 			echo '</div>';
