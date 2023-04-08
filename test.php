@@ -126,7 +126,7 @@ function woocommerce_product_category( $args = array() ) {
 		echo '</div>';
 		
 		//tabs_content
-		echo '<div class="tab-content" id="myTabContent">';
+		echo '<div class="tab-content align-items-center" id="myTabContent">';
 		$queryIndex = 0;
 		foreach ( array_reverse($terms) as $term ) {
 			$activeClass = '';
@@ -152,14 +152,6 @@ function woocommerce_product_category( $args = array() ) {
 		echo '</div>';
 	}
 }
-
-
-
-
-
-
-
-/* CSS 
 
 /*removo imagem da categoria de produtos na pag de produtos*/
 .img_product_category img{
@@ -317,12 +309,15 @@ function woocommerce_product_category( $args = array() ) {
 }
 
 /*---CATEGORIAS MEGAMENU---*/
+
+
 #megamenu_produtos .nav-tabs h2{
 	font-weight:700;
 	font-size:22px;
 	line-height:26px;
 	color:#2d2d2d;
 	margin-bottom:24px;
+	
 }
 #megamenu_produtos .subcategory-title{
 	font-weight:600;
@@ -356,11 +351,14 @@ function woocommerce_product_category( $args = array() ) {
 #megamenu_produtos a:hover{
 	cursor:pointer;
 }
-
+#megamenu_produtos .subcategory-div{
+	width:25%;
+	margin-right:16px;
+}
 /*tamanho das imgs*/
 	#megamenu_produtos .megamenu-images{
-		width:300px;
-		height:300px;
+		width:100%;
+		height:auto;
 		margin-bottom:10px;
 					background-color:#fafafa;
 		border-radius:8px;
@@ -374,7 +372,8 @@ function woocommerce_product_category( $args = array() ) {
 }
 
 #megamenu_produtos .tab-content{
-	margin-left:200px;
+	margin-left:80px;
+	width:70%;
 }
 
 
@@ -542,6 +541,3 @@ function woocommerce_product_category( $args = array() ) {
 #billing_address_2_field{
    margin-top:  7%;
 }
-
-
-*/
