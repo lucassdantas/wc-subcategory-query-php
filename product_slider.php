@@ -39,15 +39,16 @@ function show_product_slides(){
 		//tabs_content
 		echo '<div class="tab-content align-items-center" id="myTabContent">';
 		$queryIndex = 0;
+        
 		foreach ( array_reverse($terms) as $term ) {
 			$activeClass = '';
+            $activeClass02 = '';
 			$show = '';
-            $currentSlide = '';
+            $queryIndex02 = 0;
+            $ariaCurrent = '';
 			if($queryIndex === 0){
 				$activeClass = 'active';
 				$show = 'show';
-                $currentSlide = "aria-current='true'";
-                $endDiv = '';
 			}
 			$slug = $term->slug;
 			
@@ -58,29 +59,38 @@ function show_product_slides(){
 			aria-labelledby='$slug-tab2' 
 			tabindex='0'>";
             //carrossel
-            if($queryIndex === 0){
-                 echo " 
-                 <div id='carouselExampleIndicators-$queryIndex' class='carousel slide'>
-                    <div class='carousel-indicators'>";
-                    $endDiv = '</div>';
-            }
-            echo "<button type='button' data-bs-target='#product-slider-$queryIndex' data-bs-slide-to='$queryIndex' class='$activeClass' $currentSlide aria-label='Slide $queryIndex'></button>";
-            echo $endDiv;
             echo "
-                <div class='carousel-inner'>
-                    <div class='carousel-item $activeClass'>";
-
-                    echo strval($queryIndex);
-                    echo do_shortcode("[product category='$slug' per_page='12']");
+            <div id='slider-$term' class='carousel slide'>
+                <div class='carousel-indicators'>
+                    ";
+                    foreach($term as $quantity){
+                        $firstRollContent = '';
+                        if($queryIndex02 === 0) {
+                            $activeClass02 = 'active';
+                            $ariaCurrent = "aria-current='true'";
+                            $firstRollContent = "
+                            </div>
+                            <div class='carousel-inner'>" ;
+                        }
+                        echo "<button type='button' data-bs-target='slider-$term' data-bs-slide-to='$queryIndex02' class='$activeClass02' $ariaCurrent aria-label='slide $queryIndex02'></button>";
+                        echo $firstRollContent;
+                        echo "<div class='carousel-item $activeClass02'>";
+                        echo do_shortcode("[product category='$slug' per_page='12']");
+                        echo "</div>";
                     
+                        $queryIndex02++;
+                    }
+                    $queryIndex02 = 0;
+                    
+                    
+                    //end carrossel inner
                     echo "
-                    </div>
                 </div>
-                <button class='carousel-control-prev' type='button' data-bs-target='#carouselExampleIndicators$queryIndex' data-bs-slide='prev'>
+                <button class='carousel-control-prev' type='button' data-bs-target='#slider-$term' data-bs-slide='prev'>
                     <span class='carousel-control-prev-icon' aria-hidden='true'></span>
                     <span class='visually-hidden'>Previous</span>
                 </button>
-                <button class='carousel-control-next' type='button' data-bs-target='#carouselExampleIndicators$queryIndex' data-bs-slide='next'>
+                <button class='carousel-control-next' type='button' data-bs-target='#slider-$term' data-bs-slide='next'>
                     <span class='carousel-control-next-icon' aria-hidden='true'></span>
                     <span class='visually-hidden'>Next</span>
                 </button>
