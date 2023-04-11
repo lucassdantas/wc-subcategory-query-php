@@ -8,7 +8,7 @@ function show_product_slides(){
 	
 	if ( $terms ) {
 		//tab-nav
-		echo '<div class="nav me-3 text-center nav-tabs" id="v-tab" role="tablist">';
+		echo '<div class="nav  nav-tabs" id="v-tab" role="tablist">';
 		//print single tabs of patern categories
 		foreach ( array_reverse($terms) as $term ) {
 			//pre class configuration
@@ -42,9 +42,12 @@ function show_product_slides(){
 		foreach ( array_reverse($terms) as $term ) {
 			$activeClass = '';
 			$show = '';
+            $currentSlide = '';
 			if($queryIndex === 0){
 				$activeClass = 'active';
 				$show = 'show';
+                $currentSlide = "aria-current='true'";
+                $endDiv = '';
 			}
 			$slug = $term->slug;
 			
@@ -55,13 +58,15 @@ function show_product_slides(){
 			aria-labelledby='$slug-tab2' 
 			tabindex='0'>";
             //carrossel
+            if($queryIndex === 0){
+                 echo " 
+                 <div id='carouselExampleIndicators-$queryIndex' class='carousel slide'>
+                    <div class='carousel-indicators'>";
+                    $endDiv = '</div>';
+            }
+            echo "<button type='button' data-bs-target='#product-slider-$queryIndex' data-bs-slide-to='$queryIndex' class='$activeClass' $currentSlide aria-label='Slide $queryIndex'></button>";
+            echo $endDiv;
             echo "
-            <div id='carouselExampleIndicators' class='carousel slide'>
-                <div class='carousel-indicators'>
-                    <button type='button' data-bs-target='#carouselExampleIndicators' data-bs-slide-to='0' class='active' aria-current='true' aria-label='Slide 1'></button>
-                    <button type='button' data-bs-target='#carouselExampleIndicators' data-bs-slide-to='1' aria-label='Slide 2'></button>
-                    <button type='button' data-bs-target='#carouselExampleIndicators' data-bs-slide-to='2' aria-label='Slide 3'></button>
-                </div>
                 <div class='carousel-inner'>
                     <div class='carousel-item $activeClass'>";
 
@@ -71,17 +76,16 @@ function show_product_slides(){
                     echo "
                     </div>
                 </div>
-            </div>
-            <button class='carousel-control-prev' type='button' data-bs-target='#carouselExampleIndicators' data-bs-slide='prev'>
-                <span class='carousel-control-prev-icon' aria-hidden='true'></span>
-                <span class='visually-hidden'>Previous</span>
-            </button>
-            <button class='carousel-control-next' type='button' data-bs-target='#carouselExampleIndicators' data-bs-slide='next'>
-                <span class='carousel-control-next-icon' aria-hidden='true'></span>
-                <span class='visually-hidden'>Next</span>
-            </button>
-            </div>";
-			echo '</div>'; //end single tab
+                <button class='carousel-control-prev' type='button' data-bs-target='#carouselExampleIndicators$queryIndex' data-bs-slide='prev'>
+                    <span class='carousel-control-prev-icon' aria-hidden='true'></span>
+                    <span class='visually-hidden'>Previous</span>
+                </button>
+                <button class='carousel-control-next' type='button' data-bs-target='#carouselExampleIndicators$queryIndex' data-bs-slide='next'>
+                    <span class='carousel-control-next-icon' aria-hidden='true'></span>
+                    <span class='visually-hidden'>Next</span>
+                </button>
+            </div>"; //endcarrossel
+			echo '</div>'; //end single tab content
 			$queryIndex ++;
 		}
 		echo '</div>';
