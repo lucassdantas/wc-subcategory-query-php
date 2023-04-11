@@ -60,37 +60,42 @@ function show_product_slides(){
 			tabindex='0'>";
             //carrossel
             echo "
-            <div id='slider-$term' class='carousel slide'>
+            <div id='slider-$slug' class='carousel slide'>
                 <div class='carousel-indicators'>
                     ";
+                    $queryIndex02 = 0;
+
+
                     foreach($term as $quantity){
                         $firstRollContent = '';
+                        $ariaCurrent = '';
+                        $activeClass02 = '';
                         if($queryIndex02 === 0) {
                             $activeClass02 = 'active';
                             $ariaCurrent = "aria-current='true'";
-                            $firstRollContent = "
-                            </div>
-                            <div class='carousel-inner'>" ;
                         }
-                        echo "<button type='button' data-bs-target='slider-$term' data-bs-slide-to='$queryIndex02' class='$activeClass02' $ariaCurrent aria-label='slide $queryIndex02'></button>";
-                        echo $firstRollContent;
-                        echo "<div class='carousel-item $activeClass02'>";
-                        echo do_shortcode("[product category='$slug' per_page='12']");
-                        echo "</div>";
-                    
-                        $queryIndex02++;
+                        echo "<button type='button' data-bs-target='slider-$slug' data-bs-slide-to='$queryIndex02' class='$activeClass02' $ariaCurrent aria-label='slide $queryIndex02'></button>";
+                        $queryIndex++;
                     }
-                    $queryIndex02 = 0;
-                    
-                    
+                        //close carousel indicator tag
+                        echo " </div>  
+                        <div class='carousel-inner'>";
+                        foreach ($term as $quantity) {
+                            echo "<div class='carousel-item $activeClass02'>";
+                            echo do_shortcode("[product category='$slug' per_page='12']");
+                            echo "</div>";
+                        
+                            $queryIndex02++;
+                        }
+                    }
                     //end carrossel inner
                     echo "
                 </div>
-                <button class='carousel-control-prev' type='button' data-bs-target='#slider-$term' data-bs-slide='prev'>
+                <button class='carousel-control-prev' type='button' data-bs-target='#slider-$slug' data-bs-slide='prev'>
                     <span class='carousel-control-prev-icon' aria-hidden='true'></span>
                     <span class='visually-hidden'>Previous</span>
                 </button>
-                <button class='carousel-control-next' type='button' data-bs-target='#slider-$term' data-bs-slide='next'>
+                <button class='carousel-control-next' type='button' data-bs-target='#slider-$slug' data-bs-slide='next'>
                     <span class='carousel-control-next-icon' aria-hidden='true'></span>
                     <span class='visually-hidden'>Next</span>
                 </button>
