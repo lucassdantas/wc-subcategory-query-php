@@ -13,7 +13,23 @@
 }
 
 /*--CARROSSEL DE PRODUTOS HOME - atualmente em teste--*/
-#home_produtos .nav-link, #home_produtos a, #home_produtos span {
+#home_produtos .nav-link{
+	border:0;
+	color:rgba(0,0,0,.4);
+} #home_produtos .active{
+	border:0;
+	border-bottom:1px solid #000;
+	color:#2d2d2d;
+}
+#home_produtos .carousel-indicators button{
+	background-color:#D9D9D9;
+	height:5px;
+}
+#home_produtos .carousel-indicators .active{
+	background-color:#2d2d2d;
+	height:5px;
+}
+#home_produtos a, #home_produtos span {
 	color:#2d2d2d
 }
 #home_produtos .carousel-control-prev, #home_produtos .carousel-control-next{
@@ -28,23 +44,24 @@
 	color:#2d2d2d;
 }
 #home_produtos .wp-element-button, .eael-star-rating{
-	display:none;
+	display:none!important;
 	visibility:hidden;
 }
 #home_produtos .carousel-item{
 	padding:50px 0;
+	
 }
 #home_produtos .woocommerce{
-	width:150%;
+	width:100%;
 	overflow-x:auto;
 }
 #home_produtos .woocommerce ul{
 	display:flex;
-	flex-wrap:nowrap;
 }
 #home_produtos .woocommerce li{
 	width:25%!important;
 }
+
 
 /*---TEXTO ROTATIVO HOME---*/
 /*animacao texto em slide para esquerda*/
