@@ -12,6 +12,41 @@
 	visibility:hidden;
 }
 
+/*--CARROSSEL DE PRODUTOS HOME - atualmente em teste--*/
+#home_produtos .nav-link, #home_produtos a, #home_produtos span {
+	color:#2d2d2d
+}
+#home_produtos .carousel-control-prev, #home_produtos .carousel-control-next{
+	    filter: invert(1) grayscale(100);
+	
+}
+#home_produtos .carousel-control-prev:hover, #home_produtos  .carousel-control-next:hover{
+	background-color:rgba(0,0,0,0);
+}
+#home_produtos .tab-pane li{
+	text-align:center;
+	color:#2d2d2d;
+}
+#home_produtos .wp-element-button, .eael-star-rating{
+	display:none;
+	visibility:hidden;
+}
+#home_produtos .carousel-item{
+	padding:50px 0;
+}
+#home_produtos .woocommerce{
+	width:150%;
+	overflow-x:auto;
+}
+#home_produtos .woocommerce ul{
+	display:flex;
+	flex-wrap:nowrap;
+}
+#home_produtos .woocommerce li{
+	width:25%!important;
+}
+
+/*---TEXTO ROTATIVO HOME---*/
 /*animacao texto em slide para esquerda*/
 #sessao_movimento_lateral .slider {
   height: 60px;
