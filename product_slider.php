@@ -67,7 +67,6 @@ function show_product_slides(){
 
 
                     foreach($term as $quantity){
-                        $firstRollContent = '';
                         $ariaCurrent = '';
                         $activeClass02 = '';
                         if($queryIndex02 === 0) {
@@ -75,18 +74,23 @@ function show_product_slides(){
                             $ariaCurrent = "aria-current='true'";
                         }
                         echo "<button type='button' data-bs-target='slider-$slug' data-bs-slide-to='$queryIndex02' class='$activeClass02' $ariaCurrent aria-label='slide $queryIndex02'></button>";
-                        $queryIndex++;
+                        $queryIndex02++;
                     }
+                    $queryIndex02 = 0;
                         //close carousel indicator tag
                         echo " </div>  
                         <div class='carousel-inner'>";
-                        foreach ($term as $quantity) {
-                            echo "<div class='carousel-item $activeClass02'>";
-                            echo do_shortcode("[product category='$slug' per_page='12']");
-                            echo "</div>";
-                        
-                            $queryIndex02++;
+                    foreach ($term as $quantity) {
+                        $activeClass02 = '';
+                        if($queryIndex02 === 0) {
+                            $activeClass02 = 'active';
+                            $ariaCurrent = "aria-current='true'";
                         }
+                        echo "<div class='carousel-item $activeClass02'>";
+                        echo do_shortcode("[product category='$slug' per_page='12']");
+                        echo "</div>";
+                    
+                        $queryIndex02++;
                     }
                     //end carrossel inner
                     echo "
