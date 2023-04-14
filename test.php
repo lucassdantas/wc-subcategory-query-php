@@ -86,11 +86,26 @@ function show_product_slides_test(){
 			tabindex='0'>";
             //carrossel
           	$products = do_shortcode("[product category='$slug' per_page='4']");
-			$allProducts = explode("<li", $products);
+			$allProducts = preg_split("/<li\s *.*>\s*.*<\/li>/", $products);
+			
+			$queryIndex02 = 0;
+			#beginSlides
+			echo "
+				<div id='carouselExampleControls' class='carousel' data-bs-ride='carousel'>
+    				<div class='carousel-inner'>";
 			foreach ($allProducts as $index=>$allProduct){
-				$allProducts[$index] = "<li".$allProduct;
-				echo $allProducts[$index];
+				$activeClass02 = '';
+				if($queryIndex02 == 0){
+					$activeClass02 = 'active';
+				}
+				echo "<div class='carousel-item $activeClass02'>";
+				echo $allProduct;
+				echo "</div>";
 			}
+			echo "
+					</div>
+				</div>";
+			#endSlides
 			
 		
 			echo "</div>"; //end single tab content
