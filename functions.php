@@ -23,6 +23,99 @@ function hello_elementor_child_enqueue_scripts() {
 add_action( 'wp_enqueue_scripts', 'hello_elementor_child_enqueue_scripts', 20 );
 
 
+
+//test
+add_shortcode('test_slide', 'show_product_slides_test');
+
+function show_product_slides_test(){
+	$queryIndex = 0;
+	$args = array(
+		'parent' => 0
+	);
+	$terms = get_terms( 'product_cat', $args );
+	
+	if ( $terms ) {
+		//tab-nav
+		echo '<div class="nav nav-tabs justify-content-center" id="tab_slider" role="tablist">';
+		//print single tabs of patern categories
+		foreach ( array_reverse($terms) as $term ) {
+			//pre class configuration
+			$activeClass = '';
+			$selected = 'false';
+			if($queryIndex === 0) {
+				$activeClass = 'active';
+				$selected = 'true';
+			}
+			$slug = $term->slug;
+			//tabs printing
+			echo "<a class='nav-link $activeClass' 
+			id='$slug-tab2' 
+			data-bs-toggle='tab' 
+			data-bs-target='#tab2-$slug' 
+			role='tab' 
+			aria-controls='tab2-$slug'
+			aria-selected='$selected'>";
+			
+			#echo '<a href="' .  esc_url( get_term_link( $term ) ) . '" class="' . $slug . '">';
+			echo $term->name;
+			#echo '</a>';
+			echo '</a>';
+			$queryIndex ++;
+		}
+		echo '</div>';
+		
+		//tabs_content
+		echo '<div class="tab-content align-items-center" id="myTabContent">';
+        
+		foreach ( array_reverse($terms) as $index=>$term ) {
+			$activeClass = '';
+			$show = '';
+			$slug = $term->slug;
+			
+			if($index === 0){
+				$activeClass = 'active';
+				$show = 'show';
+			}
+			
+			//printing
+			echo "<div class='tab-pane $show $activeClass'
+			id='tab2-$slug' 
+			role='tabpanel' 
+			aria-labelledby='$slug-tab2' 
+			tabindex='0'>";
+            //carrossel
+          	$products = do_shortcode("[product category='$slug' per_page='-1']");
+			$allProducts = preg_split("/<li\s*.*>\s*.*\s<\/li>/", $products);
+
+			#beginSlides
+			echo "<div id='carouselExampleControls$index' class='carousel caroussel$index' data-bs-ride='carousel'>";
+				foreach ($allProducts as $index2=>$allProduct){
+						echo $allProduct;
+				}
+			
+			echo "<button class='carousel-control-prev carousel-control-prev$index' type='button' data-bs-target='#carouselExampleControls$index' data-bs-slide='prev'>
+                        <span class='carousel-control-prev-icon' aria-hidden='true'></span>
+                        <span class='visually-hidden'>Previous</span>
+                    </button>
+                    <button class='carousel-control-next carousel-control-next$index' type='button' data-bs-target='#carouselExampleControls$index' data-bs-slide='next'>
+                        <span class='carousel-control-next-icon' aria-hidden='true'></span>
+                        <span class='visually-hidden'>Next</span>
+                    </button>
+					
+				</div>"; 
+			#endSlides
+			
+		
+			echo "</div>"; //end single tab content
+		} //endforeach
+		
+		echo '</div>'; //end tab content div
+	}
+}
+
+
+
+//home slider
 add_shortcode('product_slider', 'show_product_slides');
 
 function show_product_slides(){
@@ -90,7 +183,6 @@ function show_product_slides(){
                 <div class='carousel-indicators'>
                     ";
                     $queryIndex02 = 0;
-
 
                     foreach($term as $quantity){
                         $ariaCurrent = '';

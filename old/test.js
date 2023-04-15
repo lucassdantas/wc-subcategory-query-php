@@ -3,11 +3,12 @@ let liList = []
 let liArray = []
 wc.forEach((item, i) => {
     liList[i] = item.querySelectorAll('li') 
-    item.classList.add('carousel-inner')
+    item.classList.add(`carousel-inner`)
+    item.classList.add(`carousel-inner${i}`) 
     item.classList.remove('woocommerce')
     item.innerHTML = ''
     liList[i].forEach(li => {
-        item.innerHTML += `<div class='carousel-item'><ul>${li.outerHTML}</ul></div>`
+        item.innerHTML += `<div class='carousel-item carousel-item${i}'><ul>${li.outerHTML}</ul></div>`
     })
 })
 
@@ -21,32 +22,38 @@ let AllmultipleCardCarousel = document.querySelectorAll(
   );
 
   if (window.matchMedia("(min-width: 768px)").matches) {
-    let carouselWidth = $(".carousel-inner")[0].scrollWidth;
-    let cardWidth = $(".carousel-item").width();
+    let carouselWidth = []
+    let cardWidth = []
     let scrollPosition = []
     let prevBtn = document.querySelectorAll('.carousel-control-prev')
     let nextBtn = document.querySelectorAll('.carousel-control-next')
-    nextBtn.forEach((btn,index) => {
-         scrollPosition[index] = 0;
-        $(`#carouselExampleControls${index} .carousel-control-next`).on("click", function () {
+    nextBtn.forEach((btn,i) => {
+        carouselWidth[i] = $(`.carousel-inner${i}`)[0].scrollWidth;
+        cardWidth[i] = $(`.carousel-item${i}`).width();
+        scrollPosition[i] = 0;
+        $(`#carouselExampleControls${i} .carousel-control-next${i}`).on("click", function () {
             console.log(btn)
-            if (scrollPosition[index] < carouselWidth - cardWidth * 4) {
-              scrollPosition[index] += cardWidth;
-              $(`#carouselExampleControls${index} .carousel-inner`).animate(
-                { scrollLeft: scrollPosition[index] },
+            console.log(scrollPosition[i])
+            console.log(carouselWidth[i])
+            if (scrollPosition[i] < carouselWidth[i] - cardWidth[i] * 4) {
+              scrollPosition[i] += cardWidth[i];
+              $(`#carouselExampleControls${i} .carousel-inner${i}`).animate(
+                { scrollLeft: scrollPosition[i] },
                 600
               );
             }
         });
     })
-    prevBtn.forEach((btn, index) => {
-        scrollPosition[index] = 0;
-        $(`#carouselExampleControls${index} .carousel-control-prev`).on("click", function () {
+    prevBtn.forEach((btn, i) => {
+        carouselWidth[i] = $(`.carousel-inner${i}`)[0].scrollWidth;
+        cardWidth[i] = $(`.carousel-item${i}`).width();
+        scrollPosition[i] = 0;
+        $(`#carouselExampleControls${i} .carousel-control-prev${i}`).on("click", function () {
             console.log(btn)
-            if (scrollPosition[index] > 0) {
-              scrollPosition[index] -= cardWidth;
-              $(`#carouselExampleControls${index} .carousel-inner`).animate(
-                { scrollLeft: scrollPosition[index] },
+            if (scrollPosition[i] > 0) {
+              scrollPosition[i] -= cardWidth[i];
+              $(`#carouselExampleControls${i} .carousel-inner${i}`).animate(
+                { scrollLeft: scrollPosition[i] },
                 600
               );
             }
@@ -55,6 +62,7 @@ let AllmultipleCardCarousel = document.querySelectorAll(
     } else {
         //$(multipleCardCarousel).addClass("slide");
     }
+	
 
 
   
