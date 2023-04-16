@@ -95,15 +95,25 @@ body{
 	
 	
 /*--HOME PRODUTOS MOBILE--*/
+	#home_produtos_mobile .elementor-widget-container{
+		
+	}
+	#home_produtos_mobile .div-overflow-hidden{
+		overflow-x:auto;
+	}
 	#home_produtos_mobile .nav-tabs{
 		display:flex;
 		flex-wrap:nowrap;
-		overflow-x:auto;
-		width:100%;
-	}
-	#home_produtos_mobile .nav-link{
+		overflow-x:visible;
+		margin-bottom:20px;
+		width:190vw;
 		
 	}
+	#home_produtos_mobile .nav-link{
+		font-size:16px;
+		width:fit-content;
+	}
+	/*content*/
 	#home_produtos_mobile .woocommerce{
 	width:100%;
 		overflow-x:auto;
@@ -515,12 +525,12 @@ width:5px;
 		width:280%;
 	}
 	/* Hide scrollbar for Chrome, Safari and Opera */
-.category_section .elementor-container::-webkit-scrollbar, .category_section::-webkit-scrollbar, .sessao_produtos::-webkit-scrollbar, .sessao_produtos .elementor-container::-webkit-scrollbar, .sessao_produtos .nav-tabs::-webkit-scrollbar  {
+.category_section .elementor-container::-webkit-scrollbar, .category_section::-webkit-scrollbar, .sessao_produtos::-webkit-scrollbar, .sessao_produtos .elementor-container::-webkit-scrollbar, .sessao_produtos .nav-tabs::-webkit-scrollbar, .woocommerce::-webkit-scrollbar  {
   display: none;
 }
 
 /* Hide scrollbar for IE, Edge and Firefox */
-.category_section .elementor-container, .category_section::-webkit-scrollbar, .sessao_produtos::-webkit-scrollbar, .sessao_produtos .elementor-container::-webkit-scrollbar, .eael-tab-nav, .sessao_produtos .nav-tabs::-webkit-scrollbar  {
+.category_section .elementor-container, .category_section::-webkit-scrollbar, .sessao_produtos::-webkit-scrollbar, .sessao_produtos .elementor-container::-webkit-scrollbar, .eael-tab-nav, .sessao_produtos .nav-tabs::-webkit-scrollbar, .woocommerce::-webkit-scrollbar  {
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
 }
