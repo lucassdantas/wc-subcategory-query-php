@@ -35,7 +35,9 @@ function show_product_slides_home_mobile(){
 	
 	if ( $terms ) {
 		//tab-nav
+		echo "<div class='div-overflow-hidden'>";
 		echo '<div class="nav nav-tabs" id="tab_slider_mobile" role="tablist">';
+		
 		//print single tabs of patern categories
 		foreach ( array_reverse($terms) as $term ) {
 			//pre class configuration
@@ -61,6 +63,7 @@ function show_product_slides_home_mobile(){
 			$queryIndex ++;
 		}
 		echo '</div>';
+		echo"</div>";
 		
 		//tabs_content
 		echo '<div class="tab-content align-items-center" id="myTabContent-mobile">';
@@ -173,6 +176,10 @@ function show_product_slides_home(){
 		} //endforeach
 		
 		echo '</div>'; //end tab content div
+		//buttons navigator
+		echo "
+		<div class='btn-slides-div'>
+		</div>";
 	}
 	echo'<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>';
 ?>
