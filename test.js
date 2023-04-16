@@ -1,33 +1,7 @@
-<?php
-/**
- * The template for displaying the footer.
- *
- * Contains the body & html closing tags.
- *
- * @package HelloElementor
- */
-
-if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly.
-}
-
-if ( ! function_exists( 'elementor_theme_do_location' ) || ! elementor_theme_do_location( 'footer' ) ) {
-	if ( did_action( 'elementor/loaded' ) && hello_header_footer_experiment_active() ) {
-		get_template_part( 'template-parts/dynamic-footer' );
-	} else {
-		get_template_part( 'template-parts/footer' );
-	}
-}
-?>
-
-<?php wp_footer(); ?>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
-
 <script>
 	
 	//convert products into slide items
-	let wc = document.querySelectorAll("#home_produtos .woocommerce")
+	let wc = document.querySelectorAll('#home_produtos .woocommerce')
 let liList = []
 let liArray = []
 wc.forEach((item, i) => {
@@ -63,39 +37,30 @@ document.querySelectorAll('.carousel-container').forEach((carouselContainer, i) 
     width[i] = carousel[i].offsetWidth
 	if (track[i].offsetWidth - (index[i]+1) * width[i] < index[i] * width[i]) {
 		console.log('oi')
-      next[i].classList.add("hide");
+      next[i].classList.add('hide');
     }
 	
-  window.addEventListener("resize", function () {
+  window.addEventListener('resize', function () {
     width[i] = carousel[i].offsetWidth;
   });
-  next[i].addEventListener("click", function (e) {
+  next[i].addEventListener('click', function (e) {
     carousel[i] = carouselContainer;
     width[i] = carousel[i].offsetWidth;
     
     e.preventDefault();
     index[i] = index[i] + 1;
-    prev[i].classList.add("show");
-    track[i].style.transform = "translateX(" + index[i] * -width[i] + "px)";
+    prev[i].classList.add('show');
+    track[i].style.transform = 'translateX(' + index[i] * -width[i] + 'px)';
     if (track[i].offsetWidth - index[i] * width[i] < index[i] * width[i]) {
-      next[i].classList.add("hide");
+      next[i].classList.add('hide');
     }
   });
-  prev[i].addEventListener("click", function () {
+  prev[i].addEventListener('click', function () {
     index[i] = index[i] - 1;
-    next[i].classList.remove("hide");
+    next[i].classList.remove('hide');
     if (index[i] === 0) {
-      prev[i].classList.remove("show");
+      prev[i].classList.remove('show');
     }
-    track[i].style.transform = "translateX(" + index[i] * -width[i] + "px)";
+    track[i].style.transform = 'translateX(' + index[i] * -width[i] + 'px)';
   });
 })
-
-
-	
-
-
-</script> 
-
-</body>
-</html>
