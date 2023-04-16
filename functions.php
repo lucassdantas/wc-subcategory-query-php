@@ -171,22 +171,21 @@ function show_product_slides_home(){
 			echo"</div>";//endcarrouselcontainer
 			#endSlides
 			
-		
+		echo "<div class='btn-slides-div btn-slides-div$index'> </div>";
 			echo "</div>"; //end single tab content
 		} //endforeach
 		
 		echo '</div>'; //end tab content div
 		//buttons navigator
-		echo "
-		<div class='btn-slides-div'>
-		</div>";
+		
 	}
 	echo'<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>';
 ?>
 <script>
 	
 	//convert products into slide items
-	let wc = document.querySelectorAll("#home_produtos .woocommerce")
+let wc = document.querySelectorAll("#home_produtos .woocommerce")
+let navBtnDiv = document.querySelectorAll('.btn-slides-div')
 let liList = []
 let liArray = []
 wc.forEach((item, i) => {
@@ -201,8 +200,18 @@ wc.forEach((item, i) => {
 		if(i2 === 0){active = 'active'}
         item.innerHTML += `<div class='item-of-carousel'><ul>${li.outerHTML}</ul></div>`
     })
+	let slidesN = (liList[i].length+1)/4
+	
+	if(slidesN >= 1){
+		for (let i3 = 0; i3<slidesN; i3++){
+			let activeBtn = ''
+			if(i3 === 0 ) activeBtn = 'nav-btn-active'
+			navBtnDiv[i].innerHTML += `<div class='nav-slide-btn ${activeBtn}' id='nav-slide-btn-${i}-${i3}'></div>`
+			navBtnDiv[i][i3] = navBtnDiv[i].querySelector(`#nav-slide-btn-${i}-${i3}`)
+			console.log(navBtnDiv[i][i3])
+		}	
+	}
 })
-
 
 
 	//-----------SLIDER----------------------
@@ -244,7 +253,35 @@ document.querySelectorAll('.carousel-container').forEach((carouselContainer, i) 
     }
     track[i].style.transform = "translateX(" + index[i] * -width[i] + "px)";
   });
+	navBtnDiv[i].forEach((btn, iBtn) => {
+		btn.addEventListener('click', (e) => {
+			btn.forEach( b => {
+				b.classList.remove('nav-btn-active')
+			})
+			
+			e.target.classList.add('nav-btn-active')
+			
+			//if next
+			if(iBtn > index[i]) {
+				index[i] = index[i] + 1;
+				prev[i].classList.add("show");
+				track[i].style.transform = "translateX(" + index[i] * -width[i] + "px)";
+				if (track[i].offsetWidth - index[i] * width[i] < index[i] * width[i]) {
+				  next[i].classList.add("hide");
+				}
+			}
+			if (iBtn < index[i]){
+				index[i] = index[i] - 1;
+				next[i].classList.remove("hide");
+				if (index[i] === 0) {
+				  prev[i].classList.remove("show");
+				}
+				track[i].style.transform = "translateX(" + index[i] * -width[i] + "px)";
+			}
+		})
+	})
 })
+
 </script> 
 <?php
 }

@@ -283,7 +283,9 @@ width:5px;
 /*tabs*/
 .sessao_produtos .nav-tabs{
 	border:0;
+	cursor:pointer;
 }
+
 .sessao_produtos .nav-link{
 	border:0;
 	color:rgba(0,0,0,.4);
@@ -293,6 +295,10 @@ width:5px;
 	font-weight:500px;
 } 
 
+.sessao_produtos .nav-link:hover, .sessao_produtos .nav-link:focus{
+	color:#000;
+	border:0;
+}
 .sessao_produtos .nav-tabs .active{
 	border:0;
 	border-bottom:1px solid #000;
@@ -438,6 +444,22 @@ width:5px;
 }
 .nav .next.hide {
   display: none;
+}
+/*navigator slider button*/
+.btn-slides-div{
+	width:100%;
+	display:flex;
+	justify-content:center;
+}
+.nav-slide-btn{
+	height:5px;
+	width:20px;
+	background-color:#d9d9d9;
+	margin:0 5px;
+	cursor:pointer;
+}
+.nav-btn-active{
+	background-color:#000;
 }
 
 /*---------PRODUTOS----------*/
